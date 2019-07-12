@@ -9,6 +9,6 @@ trap _term SIGTERM
 
 screen -D -m -S \
 rtorrent s6-setuidgid abc /usr/bin/rtorrent \
--n -o import=/config/rtorrent/rtorrent.rc &
+-n -o import=/rtorrent_config/.rtorrent.rc &
 
 wait

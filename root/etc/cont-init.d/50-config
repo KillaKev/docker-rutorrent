@@ -2,9 +2,8 @@
 
 # make folders
 mkdir -p \
-	/config{/log/rtorrent,/log/rutorrent,/rtorrent/rtorrent_sess,/rutorrent/settings/users} \
+	/config{/log/rutorrent,/rutorrent/settings/users} \
 	/config/rutorrent/profiles{/settings,/torrents,/users,/tmp} \
-	/downloads{/completed,/incoming,/watched} \
 	/run/php
 
 cd /defaults/rutorrent-conf || exit
@@ -14,8 +13,8 @@ do
 	[[ ! -e "/config/rutorrent/settings/${i}" ]] && cp -v "${i}" "/config/rutorrent/settings/${i}"
 done
 
-[[ ! -e /config/rtorrent/rtorrent.rc ]] && \
-	cp /defaults/rtorrent.rc /config/rtorrent/rtorrent.rc
+[[ ! -e rtorrent_config/.rtorrent.rc ]] && \
+	cp /defaults/rtorrent.rc /rtorrent_config/.rtorrent.rc
 cp -pr /config/rutorrent/settings/* /app/rutorrent/conf/
 
 # copy over any theme files to themes folder
@@ -27,13 +26,10 @@ cp -pr /config/rutorrent/settings/* /app/rutorrent/conf/
 	cp -R /config/plugins/ /app/rutorrent/
 
 # delete lock file if exists
-[[ -e /config/rtorrent/rtorrent_sess/rtorrent.lock ]] && \
-	rm /config/rtorrent/rtorrent_sess/rtorrent.lock
+[[ -e /rtorrent_config/.session/rtorrent.lock ]] && \
+	rm /rtorrent_config/.session/rtorrent.lock
 
 # permissions
-chown abc:abc \
-	/downloads \
-	/downloads{/completed,/incoming,/watched}
 
 chown -R abc:abc \
 	/config \
